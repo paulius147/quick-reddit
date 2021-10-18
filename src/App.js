@@ -1,9 +1,17 @@
-import './App.css';
+import React from 'react'
+import Navigation from './components/Navigation'
+import Posts from './features/posts/Posts'
+import Subreddits from './features/subreddits/Subreddits'
 
-function App() {
+export default function App() {
+
   return (
-    <h1>hello</h1>
-  );
+    <div className='App'>
+      <Navigation />
+      <main className='main'>
+        <Posts />
+        <Subreddits />
+      </main>
+    </div>
+  )
 }
-
-export default App;
