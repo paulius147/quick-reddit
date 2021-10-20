@@ -49,6 +49,10 @@ img {
     display: flex;
     align-items: center;
     flex: 1;
+    cursor: pointer;
+}
+.fa-reddit-square {
+    color: red;
 }
 
 .logo a {
@@ -114,9 +118,22 @@ img {
     border-radius: 5px;
     padding: 0.5rem;
     display: flex;
+    flex-direction: column;
     box-shadow: 0px 0px 5px 1px rgba(82,79,79,0.75);
     -webkit-box-shadow: 0px 0px 5px 1px rgba(82,79,79,0.75);
     -moz-box-shadow: 0px 0px 5px 1px rgba(82,79,79,0.75);
+}
+
+.post-votes {
+    display: flex;
+}
+
+.post-title-link {
+    color: rgb(49, 49, 49);
+}
+
+.post-title-link:hover {
+    color: blue;
 }
 
 .author-time-com {
@@ -202,7 +219,9 @@ img {
 }
 
 .currSub {
+    border-radius: 0px 5px 5px 0px;
     background-color: rgb(206, 206, 206);
+    border-left: 4px solid rgb(40, 40, 243);
 }
 
 .sub-title {
@@ -212,6 +231,10 @@ img {
 .sub:hover {
     background: rgb(228, 226, 224);
     border-radius: 5px;
+}
+
+.currSub:hover {
+    border-radius: 0px 5px 5px 0px;
 }
 
 .sub-img {
@@ -248,4 +271,24 @@ img {
     font-weight: bold;
     font-size: 1rem;
     cursor: pointer;
+}
+
+/* COMMENTS */
+.post-comments {
+    word-wrap: break-word;
+}
+
+.com-author {
+    color: blue;
+}
+
+.comments-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.comment {
+    background-color: rgb(238, 234, 234);
+    padding: 1rem;
+    border-radius: 5px;
 }

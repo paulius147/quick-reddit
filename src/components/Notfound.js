@@ -1,6 +1,5 @@
 import React from 'react'
-import { currentSub } from '../features/subreddits/subredditsSlice'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { clearSearch } from '../features/search/searchSlice';
 
 export default function Notfound() {

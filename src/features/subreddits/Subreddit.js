@@ -9,7 +9,6 @@ export default function Subbredit({ sub }) {
     const currSub = useSelector(currentSub);
 
     const handleClick = () => {
-        console.log(sub);
         dispatch(loadAllPostsByCategory(sub.title));
         dispatch(clearSearch());
         dispatch(setCurrentSub(sub.title));

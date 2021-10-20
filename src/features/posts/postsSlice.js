@@ -10,12 +10,36 @@ export const loadAllPostsByCategory = createAsyncThunk(
     }
 );
 
+export const loadCommentsByPost = createAsyncThunk(
+    'posts/loadCommentsByPost',
+    async (id) => {
+        const data = await fetch(`https://www.reddit.com/comments/${id}.json`);
+        const json = await data.json();
+        return json;
+    }
+);
+
 export const postsSlice = createSlice({
     name: 'posts',
     initialState: {
         posts: [],
         isLoadingPosts: false,
         hasError: false,
+        currId: '',
+        isLoadingComments: false
+    },
+    reducers: {
+        setClicked: (state, action) => {
+            // eslint-disable-next-line
+            state.posts.map(post => {
+                if (post.id.includes(action.payload)) {
+                    return post.clicked = !post.clicked;
+                }
+            })
+        },
+        setCurrId: (state, action) => {
+            state.currId = action.payload;
+        }
     },
     extraReducers: {
         [loadAllPostsByCategory.pending]: (state) => {
@@ -35,19 +59,49 @@ export const postsSlice = createSlice({
                 comments: post.data.num_comments,
                 time: post.data.created_utc,
                 photo: post.data.url,
-                video: post.data.url
+                video: post.data.url,
+                clicked: false,
+                postComments: []
             }));
         },
         [loadAllPostsByCategory.rejected]: (state) => {
             state.isLoadingPosts = false;
             state.hasError = true;
-        }
+        },
+
+
+
+        [loadCommentsByPost.pending]: (state) => {
+            state.isLoadingComments = true;
+            state.hasError = false;
+        },
+        [loadCommentsByPost.fulfilled]: (state, action) => {
+            state.isLoadingComments = false;
+            state.hasError = false;
+            // eslint-disable-next-line
+            state.posts.map(post => {
+                if (post.id.includes(state.currId)) {
+                    post.postComments = action.payload[1].data.children.map(com => ({
+                        comment: com.data.body,
+                        author: com.data.author,
+                    }));
+                }
+            })
+        },
+        [loadCommentsByPost.rejected]: (state) => {
+            state.isLoadingComments = false;
+            state.hasError = true;
+        },
     }
 });
 
 export const selectPosts = (state) => state.posts.posts;
 export const isLoadingPosts = (state) => state.posts.isLoadingPosts;
 export const hasError = (state) => state.posts.hasError;
+export const isLoadingComments = (state) => state.posts.isLoadingComments;
+export const selectCurrId = (state) => state.posts.currId;
+
+export const { setClicked, setComments, setCurrId } = postsSlice.actions;
 
 export const selectFilteredPosts = (state) => {
     const allPosts = selectPosts(state);
@@ -59,39 +113,3 @@ export const selectFilteredPosts = (state) => {
 }
 
 export default postsSlice.reducer;
-
-
-
-
-
-// FOR TIME CALCULATION
-// let dateNow = new Date(1634010280 * 1000);
-// let dateFuture = new Date();
-
-// let diffInMilliSeconds = Math.abs(dateFuture - dateNow) / 1000;
-
-// // calculate days
-// const days = Math.floor(diffInMilliSeconds / 86400);
-// diffInMilliSeconds -= days * 86400;
-// console.log('calculated days', days);
-
-// // calculate hours
-// const hours = Math.floor(diffInMilliSeconds / 3600) % 24;
-// diffInMilliSeconds -= hours * 3600;
-// console.log('calculated hours', hours);
-
-// // calculate minutes
-// const minutes = Math.floor(diffInMilliSeconds / 60) % 60;
-// diffInMilliSeconds -= minutes * 60;
-// console.log('minutes', minutes);
-
-// let difference = '';
-// if (days > 0) {
-//     difference += (days === 1) ? `${days} day, ` : `${days} days, `;
-// }
-
-// difference += (hours === 0 || hours === 1) ? `${hours} hour, ` : `${hours} hours, `;
-
-// difference += (minutes === 0 || hours === 1) ? `${minutes} minutes` : `${minutes} minutes`;
-
-// return console.log(difference);
