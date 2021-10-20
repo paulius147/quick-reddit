@@ -60,7 +60,9 @@ export default function Post({ post }) {
             <div className='post-votes gap-1'>
                 <div className="votes">
                     <i className="fas fa-arrow-up"></i>
-                    <span>{post.votes}</span>
+                    <span>{new Intl.NumberFormat('en-GB', {
+                        notation: "compact"
+                    }).format(post.votes)}</span>
                     <i className="fas fa-arrow-down"></i>
                 </div>
                 <div className='title-media-author gap-1'>
@@ -71,7 +73,9 @@ export default function Post({ post }) {
                         <span className="time">{time()}</span>
                         <div onClick={handleCom} className="comments">
                             <i className="far fa-comments"></i>
-                            <span className='com-num'>{post.comments}</span>
+                            <span className='com-num'>{new Intl.NumberFormat('en-GB', {
+                                notation: "compact"
+                            }).format(post.comments)}</span>
                         </div>
                     </div>
                 </div>

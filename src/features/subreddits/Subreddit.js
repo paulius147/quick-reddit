@@ -12,6 +12,7 @@ export default function Subbredit({ sub }) {
         dispatch(loadAllPostsByCategory(sub.title));
         dispatch(clearSearch());
         dispatch(setCurrentSub(sub.title));
+        window.scrollTo(0, 0);
     }
 
     return (

@@ -19,7 +19,7 @@ export default function Subreddits() {
     }
 
     return (
-        <section className='subs'>
+        <section id='subs' className='subs'>
             <div className="container">
                 <ul className="subs-list gap-1">
                     <h1 className='subs-list-title'>Subreddits</h1>
