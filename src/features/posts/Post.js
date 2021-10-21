@@ -10,7 +10,6 @@ export default function Post({ post }) {
         dispatch(setCurrId(post.id));
         dispatch(setClicked(post.id));
         dispatch(loadCommentsByPost(post.id));
-        console.log(post.postComments)
     }
 
     function time() {

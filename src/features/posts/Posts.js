@@ -12,7 +12,6 @@ export default function Posts() {
 
     useEffect(() => {
         dispatch(loadAllPostsByCategory('pics'))
-        console.log(allPosts)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
