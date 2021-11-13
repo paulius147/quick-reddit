@@ -56,7 +56,7 @@ export default function Post({ post }) {
 
     return (
         <li className='post gap-1'>
-            <div className='post-votes gap-1'>
+            <div className='post-votes'>
                 <div className="votes">
                     <i className="fas fa-arrow-up"></i>
                     <span>{new Intl.NumberFormat('en-GB', {
